@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecf.mapper.PorderMapper" >
+  <resultMap id="BaseResultMap" type="com.ecf.pojo.Porder" >
+    <id column="oorderid" property="oorderid" jdbcType="INTEGER" />
+    <result column="pcftypeid" property="pcftypeid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="ostatus" property="ostatus" jdbcType="VARCHAR" />
+    <result column="ocount" property="ocount" jdbcType="INTEGER" />
+    <result column="oprice" property="oprice" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ecf.pojo.Porder" extends="BaseResultMap" >
+    <result column="oaddress" property="oaddress" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oorderid, pcftypeid, uid, ostatus, ocount, oprice
+  </sql>
+  <sql id="Blob_Column_List" >
+    oaddress
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ecf.pojo.PorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from porder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecf.pojo.PorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from porder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+    
+  </select>
+<!--   <select id = "selectMyOrder" resultMap="BaseResultMap" parameterType="com.ecf.pojo.PorderExample">
+  		select pcftype.pcfintrouce,porder.*
+ from pcftype inner join porder on pcftype.pcftypeid=porder.pcftypeid; 
+ 	select pcftype.pcfintrouce
+ 	<include refid="Base_column_List"/>
+ 	,porder.*
+ 	<include refid="Base_column_List"/>
+ 	from porder
+ 	on pcftype.pcftypeid=porder.pcftypeid
+ 	<include refid="Base_column_List"/>
+ 	where porder.uid={#uid,jdbcType=INTEGER} 
+  </select> -->
+  <!-- 
+  自定义
+  select pcftype.pcfintrouce,porder.* from pcftype inner join porder on pcftype.pcftypeid=porder.pcftypeid where porder.uid=1 -->
+  <select id="selectMyOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select pcftype.pcfintrouce,pcftype.pid,porder.* from pcftype inner join porder on pcftype.pcftypeid=porder.pcftypeid where porder.uid=#{porder.uid,jdbcType=INTEGER};
+  </select>
+  <!-- 自定义进度的更新方法 -->
+  <update id="updateProcessByPrimaryKey" parameterType="java.lang.Integer">
+ 	update project.ppledged value project.ppledged+#{porder.uid,jdbcType=INTEGER} where pid=#{porder.uid,jdbcType=INTEGER}
+  </update>  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from porder
+    where oorderid = #{oorderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from porder
+    where oorderid = #{oorderid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecf.pojo.PorderExample" >
+    delete from porder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecf.pojo.Porder" >
+    insert into porder (oorderid, pcftypeid, uid, 
+      ostatus, ocount, oprice, 
+      oaddress)
+    values (#{oorderid,jdbcType=INTEGER}, #{pcftypeid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{ostatus,jdbcType=VARCHAR}, #{ocount,jdbcType=INTEGER}, #{oprice,jdbcType=INTEGER}, 
+      #{oaddress,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecf.pojo.Porder" >
+    insert into porder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oorderid != null" >
+        oorderid,
+      </if>
+      <if test="pcftypeid != null" >
+        pcftypeid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="ostatus != null" >
+        ostatus,
+      </if>
+      <if test="ocount != null" >
+        ocount,
+      </if>
+      <if test="oprice != null" >
+        oprice,
+      </if>
+      <if test="oaddress != null" >
+        oaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oorderid != null" >
+        #{oorderid,jdbcType=INTEGER},
+      </if>
+      <if test="pcftypeid != null" >
+        #{pcftypeid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="ostatus != null" >
+        #{ostatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ocount != null" >
+        #{ocount,jdbcType=INTEGER},
+      </if>
+      <if test="oprice != null" >
+        #{oprice,jdbcType=INTEGER},
+      </if>
+      <if test="oaddress != null" >
+        #{oaddress,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecf.pojo.PorderExample" resultType="java.lang.Integer" >
+    select count(*) from porder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update porder
+    <set >
+      <if test="record.oorderid != null" >
+        oorderid = #{record.oorderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcftypeid != null" >
+        pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ostatus != null" >
+        ostatus = #{record.ostatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ocount != null" >
+        ocount = #{record.ocount,jdbcType=INTEGER},
+      </if>
+      <if test="record.oprice != null" >
+        oprice = #{record.oprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.oaddress != null" >
+        oaddress = #{record.oaddress,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update porder
+    set oorderid = #{record.oorderid,jdbcType=INTEGER},
+      pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      ostatus = #{record.ostatus,jdbcType=VARCHAR},
+      ocount = #{record.ocount,jdbcType=INTEGER},
+      oprice = #{record.oprice,jdbcType=INTEGER},
+      oaddress = #{record.oaddress,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update porder
+    set oorderid = #{record.oorderid,jdbcType=INTEGER},
+      pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      ostatus = #{record.ostatus,jdbcType=VARCHAR},
+      ocount = #{record.ocount,jdbcType=INTEGER},
+      oprice = #{record.oprice,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecf.pojo.Porder" >
+    update porder
+    <set >
+      <if test="pcftypeid != null" >
+        pcftypeid = #{pcftypeid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="ostatus != null" >
+        ostatus = #{ostatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ocount != null" >
+        ocount = #{ocount,jdbcType=INTEGER},
+      </if>
+      <if test="oprice != null" >
+        oprice = #{oprice,jdbcType=INTEGER},
+      </if>
+      <if test="oaddress != null" >
+        oaddress = #{oaddress,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where oorderid = #{oorderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ecf.pojo.Porder" >
+    update porder
+    set pcftypeid = #{pcftypeid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      ostatus = #{ostatus,jdbcType=VARCHAR},
+      ocount = #{ocount,jdbcType=INTEGER},
+      oprice = #{oprice,jdbcType=INTEGER},
+      oaddress = #{oaddress,jdbcType=LONGVARCHAR}
+    where oorderid = #{oorderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecf.pojo.Porder" >
+    update porder
+    set pcftypeid = #{pcftypeid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      ostatus = #{ostatus,jdbcType=VARCHAR},
+      ocount = #{ocount,jdbcType=INTEGER},
+      oprice = #{oprice,jdbcType=INTEGER}
+    where oorderid = #{oorderid,jdbcType=INTEGER}
+  </update>
+</mapper>

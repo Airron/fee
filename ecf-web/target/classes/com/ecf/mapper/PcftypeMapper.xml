@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecf.mapper.PcftypeMapper" >
+  <resultMap id="BaseResultMap" type="com.ecf.pojo.Pcftype" >
+    <id column="pcftypeid" property="pcftypeid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pcfprix" property="pcfprix" jdbcType="INTEGER" />
+    <result column="pcfprice" property="pcfprice" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ecf.pojo.Pcftype" extends="BaseResultMap" >
+    <result column="pcfintrouce" property="pcfintrouce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pcftypeid, pid, pcfprix, pcfprice
+  </sql>
+  <sql id="Blob_Column_List" >
+    pcfintrouce
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ecf.pojo.PcftypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pcftype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecf.pojo.PcftypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pcftype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pcftype
+    where pcftypeid = #{pcftypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcftype
+    where pcftypeid = #{pcftypeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecf.pojo.PcftypeExample" >
+    delete from pcftype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecf.pojo.Pcftype" >
+    insert into pcftype (pcftypeid, pid, pcfprix, 
+      pcfprice, pcfintrouce)
+    values (#{pcftypeid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{pcfprix,jdbcType=INTEGER}, 
+      #{pcfprice,jdbcType=INTEGER}, #{pcfintrouce,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecf.pojo.Pcftype" >
+    insert into pcftype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pcftypeid != null" >
+        pcftypeid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pcfprix != null" >
+        pcfprix,
+      </if>
+      <if test="pcfprice != null" >
+        pcfprice,
+      </if>
+      <if test="pcfintrouce != null" >
+        pcfintrouce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pcftypeid != null" >
+        #{pcftypeid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pcfprix != null" >
+        #{pcfprix,jdbcType=INTEGER},
+      </if>
+      <if test="pcfprice != null" >
+        #{pcfprice,jdbcType=INTEGER},
+      </if>
+      <if test="pcfintrouce != null" >
+        #{pcfintrouce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecf.pojo.PcftypeExample" resultType="java.lang.Integer" >
+    select count(*) from pcftype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pcftype
+    <set >
+      <if test="record.pcftypeid != null" >
+        pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcfprix != null" >
+        pcfprix = #{record.pcfprix,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcfprice != null" >
+        pcfprice = #{record.pcfprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcfintrouce != null" >
+        pcfintrouce = #{record.pcfintrouce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pcftype
+    set pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      pcfprix = #{record.pcfprix,jdbcType=INTEGER},
+      pcfprice = #{record.pcfprice,jdbcType=INTEGER},
+      pcfintrouce = #{record.pcfintrouce,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pcftype
+    set pcftypeid = #{record.pcftypeid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      pcfprix = #{record.pcfprix,jdbcType=INTEGER},
+      pcfprice = #{record.pcfprice,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecf.pojo.Pcftype" >
+    update pcftype
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pcfprix != null" >
+        pcfprix = #{pcfprix,jdbcType=INTEGER},
+      </if>
+      <if test="pcfprice != null" >
+        pcfprice = #{pcfprice,jdbcType=INTEGER},
+      </if>
+      <if test="pcfintrouce != null" >
+        pcfintrouce = #{pcfintrouce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pcftypeid = #{pcftypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ecf.pojo.Pcftype" >
+    update pcftype
+    set pid = #{pid,jdbcType=INTEGER},
+      pcfprix = #{pcfprix,jdbcType=INTEGER},
+      pcfprice = #{pcfprice,jdbcType=INTEGER},
+      pcfintrouce = #{pcfintrouce,jdbcType=LONGVARCHAR}
+    where pcftypeid = #{pcftypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecf.pojo.Pcftype" >
+    update pcftype
+    set pid = #{pid,jdbcType=INTEGER},
+      pcfprix = #{pcfprix,jdbcType=INTEGER},
+      pcfprice = #{pcfprice,jdbcType=INTEGER}
+    where pcftypeid = #{pcftypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

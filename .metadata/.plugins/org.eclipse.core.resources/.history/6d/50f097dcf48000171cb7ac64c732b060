@@ -1,0 +1,43 @@
+package com.feecreate.pojo;
+
+public class Feefile {
+    private Integer filenum;
+
+    private String filepath;
+
+    private String filename;
+
+    private String filetype;
+
+    public Integer getFilenum() {
+        return filenum;
+    }
+
+    public void setFilenum(Integer filenum) {
+        this.filenum = filenum;
+    }
+
+    public String getfilepath() {
+        return filepath;
+    }
+
+    public void setfilepath(String filepath) {
+        this.filepath = filepath == null ? null : filepath.trim();
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename == null ? null : filename.trim();
+    }
+
+    public String getfiletype() {
+        return filetype;
+    }
+
+    public void setfiletype(String filetype) {
+        this.filetype = filetype == null ? null : filetype.trim();
+    }
+}

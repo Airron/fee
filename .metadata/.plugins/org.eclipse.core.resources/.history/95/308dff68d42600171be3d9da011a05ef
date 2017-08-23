@@ -1,0 +1,39 @@
+package com.ecf.controller;
+
+import java.util.List;
+
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ecf.pojo.Pcategory;
+import com.ecf.service.PcategoryService;
+
+@Controller
+public class PageController {
+
+	@Autowired
+	private PcategoryService pcategoryService;
+	@RequestMapping("/")
+	public String showIndex(ModelMap model,HttpServletRequest request){
+		//获取分类的内容
+		List<Pcategory> pcategorylist = pcategoryService.getPcategory();
+		model.addAttribute("pcategorylist",pcategorylist);
+		//首页轮播图
+		
+		return "index";
+		
+	}
+	
+	
+	@RequestMapping("/{page}")
+	public String showPage(@PathVariable String page){
+		
+		return page;
+	}
+}

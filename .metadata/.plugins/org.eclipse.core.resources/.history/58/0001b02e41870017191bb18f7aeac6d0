@@ -1,0 +1,22 @@
+package socketTest;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class listenerTest {
+	
+	public String getID() throws UnknownHostException{
+		
+		InetAddress address = InetAddress.getLocalHost();
+		
+		return "";
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+	}
+
+}

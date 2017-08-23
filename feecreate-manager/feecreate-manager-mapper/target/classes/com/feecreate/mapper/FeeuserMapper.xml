@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feecreate.mapper.FeeuserMapper" >
+  <resultMap id="BaseResultMap" type="com.feecreate.pojo.Feeuser" >
+    <id column="feeUserId" property="feeuserid" jdbcType="INTEGER" />
+    <result column="feeUserRole" property="feeuserrole" jdbcType="INTEGER" />
+    <result column="feeUserName" property="feeusername" jdbcType="VARCHAR" />
+    <result column="feeUserPassword" property="feeuserpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    feeUserId, feeUserRole, feeUserName, feeUserPassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.feecreate.pojo.FeeuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from feeuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from feeuser
+    where feeUserId = #{feeuserid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from feeuser
+    where feeUserId = #{feeuserid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.feecreate.pojo.FeeuserExample" >
+    delete from feeuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.feecreate.pojo.Feeuser" >
+    insert into feeuser (feeUserId, feeUserRole, feeUserName, 
+      feeUserPassword)
+    values (#{feeuserid,jdbcType=INTEGER}, #{feeuserrole,jdbcType=INTEGER}, #{feeusername,jdbcType=VARCHAR}, 
+      #{feeuserpassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feecreate.pojo.Feeuser" >
+    insert into feeuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feeuserid != null" >
+        feeUserId,
+      </if>
+      <if test="feeuserrole != null" >
+        feeUserRole,
+      </if>
+      <if test="feeusername != null" >
+        feeUserName,
+      </if>
+      <if test="feeuserpassword != null" >
+        feeUserPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feeuserid != null" >
+        #{feeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="feeuserrole != null" >
+        #{feeuserrole,jdbcType=INTEGER},
+      </if>
+      <if test="feeusername != null" >
+        #{feeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="feeuserpassword != null" >
+        #{feeuserpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.feecreate.pojo.FeeuserExample" resultType="java.lang.Integer" >
+    select count(*) from feeuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update feeuser
+    <set >
+      <if test="record.feeuserid != null" >
+        feeUserId = #{record.feeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.feeuserrole != null" >
+        feeUserRole = #{record.feeuserrole,jdbcType=INTEGER},
+      </if>
+      <if test="record.feeusername != null" >
+        feeUserName = #{record.feeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeuserpassword != null" >
+        feeUserPassword = #{record.feeuserpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update feeuser
+    set feeUserId = #{record.feeuserid,jdbcType=INTEGER},
+      feeUserRole = #{record.feeuserrole,jdbcType=INTEGER},
+      feeUserName = #{record.feeusername,jdbcType=VARCHAR},
+      feeUserPassword = #{record.feeuserpassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feecreate.pojo.Feeuser" >
+    update feeuser
+    <set >
+      <if test="feeuserrole != null" >
+        feeUserRole = #{feeuserrole,jdbcType=INTEGER},
+      </if>
+      <if test="feeusername != null" >
+        feeUserName = #{feeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="feeuserpassword != null" >
+        feeUserPassword = #{feeuserpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where feeUserId = #{feeuserid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feecreate.pojo.Feeuser" >
+    update feeuser
+    set feeUserRole = #{feeuserrole,jdbcType=INTEGER},
+      feeUserName = #{feeusername,jdbcType=VARCHAR},
+      feeUserPassword = #{feeuserpassword,jdbcType=VARCHAR}
+    where feeUserId = #{feeuserid,jdbcType=INTEGER}
+  </update>
+</mapper>

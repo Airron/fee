@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ecf.mapper.PcategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.ecf.pojo.Pcategory" >
+    <id column="pcategoryid" property="pcategoryid" jdbcType="INTEGER" />
+    <result column="pcategory" property="pcategory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pcategoryid, pcategory
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ecf.pojo.PcategoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pcategory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pcategory
+    where pcategoryid = #{pcategoryid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pcategory
+    where pcategoryid = #{pcategoryid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ecf.pojo.PcategoryExample" >
+    delete from pcategory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ecf.pojo.Pcategory" >
+    insert into pcategory (pcategoryid, pcategory)
+    values (#{pcategoryid,jdbcType=INTEGER}, #{pcategory,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ecf.pojo.Pcategory" >
+    insert into pcategory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pcategoryid != null" >
+        pcategoryid,
+      </if>
+      <if test="pcategory != null" >
+        pcategory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pcategoryid != null" >
+        #{pcategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="pcategory != null" >
+        #{pcategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ecf.pojo.PcategoryExample" resultType="java.lang.Integer" >
+    select count(*) from pcategory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pcategory
+    <set >
+      <if test="record.pcategoryid != null" >
+        pcategoryid = #{record.pcategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcategory != null" >
+        pcategory = #{record.pcategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pcategory
+    set pcategoryid = #{record.pcategoryid,jdbcType=INTEGER},
+      pcategory = #{record.pcategory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ecf.pojo.Pcategory" >
+    update pcategory
+    <set >
+      <if test="pcategory != null" >
+        pcategory = #{pcategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pcategoryid = #{pcategoryid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ecf.pojo.Pcategory" >
+    update pcategory
+    set pcategory = #{pcategory,jdbcType=VARCHAR}
+    where pcategoryid = #{pcategoryid,jdbcType=INTEGER}
+  </update>
+</mapper>

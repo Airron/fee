@@ -1,0 +1,36 @@
+package com.ecf.mapper;
+
+import com.ecf.pojo.Porder;
+import com.ecf.pojo.PorderExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface PorderMapper {
+    int countByExample(PorderExample example);
+
+    int deleteByExample(PorderExample example);
+
+    int deleteByPrimaryKey(Integer oorderid);
+
+    int insert(Porder record);
+
+    int insertSelective(Porder record);
+
+    List<Porder> selectByExampleWithBLOBs(PorderExample example);
+
+    List<Porder> selectByExample(PorderExample example);
+
+    Porder selectByPrimaryKey(Integer oorderid);
+
+    int updateByExampleSelective(@Param("record") Porder record, @Param("example") PorderExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") Porder record, @Param("example") PorderExample example);
+
+    int updateByExample(@Param("record") Porder record, @Param("example") PorderExample example);
+
+    int updateByPrimaryKeySelective(Porder record);
+
+    int updateByPrimaryKeyWithBLOBs(Porder record);
+
+    int updateByPrimaryKey(Porder record);
+}

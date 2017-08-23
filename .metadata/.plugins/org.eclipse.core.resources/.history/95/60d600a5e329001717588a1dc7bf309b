@@ -1,0 +1,53 @@
+package com.ecf.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ecf.mapper.ProjectMapper;
+import com.ecf.pojo.Pcategory;
+import com.ecf.pojo.Project;
+import com.ecf.pojo.ProjectExample;
+import com.ecf.pojo.ProjectExample.Criteria;
+import com.ecf.pojo.ProjectExample.Criterion;
+import com.ecf.pojo.ProjectWithBLOBs;
+import com.ecf.service.PcategoryService;
+import com.ecf.service.ProjectService;
+
+@Service
+public class ProjectServiceImpl implements ProjectService {
+
+	@Autowired
+	private PcategoryService pcategoryService;
+	
+	@Autowired
+	private ProjectMapper projectMapper;
+	@Override
+	public List<Project> getProject(Project project) {
+		// TODO Auto-generated method stub
+		ProjectExample example = new ProjectExample();
+		
+		
+//		Criterion criterion = ;
+		
+		
+		
+		
+		List<Project> slidlist = projectMapper.selectByExample(null);
+		return null;
+	}
+	@Override
+	public List<Project> getProjectByCate(int pcnum) {
+		// TODO Auto-generated method stub
+		
+		ProjectExample example = new ProjectExample();
+		Criteria cri = example.createCriteria();
+		cri.andPcategoryidEqualTo(pcnum);
+		
+		List<ProjectWithBLOBs> pclist = projectMapper.selectByExampleWithBLOBs(example);
+		return null;
+	}
+
+
+}

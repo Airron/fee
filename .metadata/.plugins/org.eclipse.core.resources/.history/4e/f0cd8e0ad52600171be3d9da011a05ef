@@ -1,0 +1,30 @@
+package com.ecf.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ecf.pojo.User;
+import com.ecf.service.UserService;
+
+@Controller
+public class UserController {
+	
+/*注册*/
+	@Autowired
+	private UserService userService;
+	@RequestMapping("/user/regist")
+	public String userRegist(User user){
+		String result= userService.regist(user);
+		return result;
+	}
+	
+	@RequestMapping("/user/login")
+	public String userLogin(User user,HttpServletRequest request){
+		String result= userService.login(user);
+		request.getSession().setAttribute(name, value);
+		return result;
+	}
+}

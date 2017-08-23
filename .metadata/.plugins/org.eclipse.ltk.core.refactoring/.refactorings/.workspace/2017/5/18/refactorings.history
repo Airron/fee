@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from workspace&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ecf-web/src/main/java/com.ecf.mapper&#x0D;&#x0A;     ecf-web/src/main/java/com.ecf.pojo&#x0D;&#x0A;     generatorSqlmapCustom/src/com.ecf.mapper&#x0D;&#x0A;     generatorSqlmapCustom/src/com.ecf.pojo" description="Delete elements" element1="=generatorSqlmapCustom/src&lt;com.ecf.pojo" element2="=generatorSqlmapCustom/src&lt;com.ecf" element3="=generatorSqlmapCustom/src&lt;com" element4="=ecf-web/src\/main\/java&lt;com.ecf.pojo" element5="=ecf-web/src\/main\/java&lt;com.ecf.mapper" element6="=generatorSqlmapCustom/src&lt;com.ecf.mapper" element7="=generatorSqlmapCustom/src&lt;com.ecf" element8="=generatorSqlmapCustom/src&lt;com" elements="8" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1493749619913" subPackages="false" version="1.0"/>
+</session>

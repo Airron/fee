@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feecreate.mapper.FeefileMapper" >
+  <resultMap id="BaseResultMap" type="com.feecreate.pojo.Feefile" >
+    <id column="fileNum" property="filenum" jdbcType="INTEGER" />
+    <result column="filePath" property="filepath" jdbcType="VARCHAR" />
+    <result column="fileName" property="filename" jdbcType="VARCHAR" />
+    <result column="fileType" property="filetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fileNum, filePath, fileName, fileType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.feecreate.pojo.FeefileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from feefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from feefile
+    where fileNum = #{filenum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from feefile
+    where fileNum = #{filenum,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.feecreate.pojo.FeefileExample" >
+    delete from feefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.feecreate.pojo.Feefile" >
+    insert into feefile (fileNum, filePath, fileName, 
+      fileType)
+    values (#{filenum,jdbcType=INTEGER}, #{filepath,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{filetype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feecreate.pojo.Feefile" >
+    insert into feefile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="filenum != null" >
+        fileNum,
+      </if>
+      <if test="filepath != null" >
+        filePath,
+      </if>
+      <if test="filename != null" >
+        fileName,
+      </if>
+      <if test="filetype != null" >
+        fileType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="filenum != null" >
+        #{filenum,jdbcType=INTEGER},
+      </if>
+      <if test="filepath != null" >
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.feecreate.pojo.FeefileExample" resultType="java.lang.Integer" >
+    select count(*) from feefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update feefile
+    <set >
+      <if test="record.filenum != null" >
+        fileNum = #{record.filenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.filepath != null" >
+        filePath = #{record.filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        fileName = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filetype != null" >
+        fileType = #{record.filetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update feefile
+    set fileNum = #{record.filenum,jdbcType=INTEGER},
+      filePath = #{record.filepath,jdbcType=VARCHAR},
+      fileName = #{record.filename,jdbcType=VARCHAR},
+      fileType = #{record.filetype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feecreate.pojo.Feefile" >
+    update feefile
+    <set >
+      <if test="filepath != null" >
+        filePath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        fileType = #{filetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fileNum = #{filenum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feecreate.pojo.Feefile" >
+    update feefile
+    set filePath = #{filepath,jdbcType=VARCHAR},
+      fileName = #{filename,jdbcType=VARCHAR},
+      fileType = #{filetype,jdbcType=VARCHAR}
+    where fileNum = #{filenum,jdbcType=INTEGER}
+  </update>
+</mapper>

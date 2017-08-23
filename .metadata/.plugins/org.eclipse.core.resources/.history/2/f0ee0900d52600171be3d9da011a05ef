@@ -1,0 +1,21 @@
+package com.ecf.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ecf.pojo.User;
+import com.ecf.service.UserService;
+
+@Controller
+public class UserController {
+	
+/*注册*/
+	@Autowired
+	private UserService userService;
+	@RequestMapping("/user/regist")
+	public String userRegist(User user){
+		String result= userService.regist(user);
+		return result;
+	}
+}

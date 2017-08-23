@@ -1,0 +1,33 @@
+package socketTest;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class listenerTest {
+	
+	public String getID() throws UnknownHostException{
+		//获取本机的InetAddress实例
+		InetAddress address = InetAddress.getLocalHost();
+		address.getHostName();//获取计算机名
+		address.getHostAddress();//获取IP地址
+		byte[] bytes = address.getAddress();//获取字节数组形式的IP地址，以点分割的四部分
+		String IPaddress = bytes.toString();
+		return IPaddress;
+	}
+	
+
+	public static void main(String[] args) throws UnknownHostException {
+		// TODO Auto-generated method stub
+		InetAddress address = InetAddress.getLocalHost();
+		address.getHostName();//获取计算机名
+		address.getHostAddress();//获取IP地址
+		byte[] bytes = address.getAddress();//获取字节数组形式的IP地址，以点分割的四部分
+		String IPaddress = bytes.toString();
+		for(byte bt:btyes){
+			System.out.println(bt);
+		}
+		System.out.println(bytes+"\n"+address.getHostName());
+
+	}
+
+}
